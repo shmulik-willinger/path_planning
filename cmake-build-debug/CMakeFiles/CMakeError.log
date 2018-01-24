@@ -1,0 +1,8 @@
+Determining if the C compiler works failed with the following output:
+Change Dir: C:/Users/swillin/courses/drive/projects/path_planning/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Users/swillin/Downloads/make-3.81-bin" "cmTC_6ac9c/fast"
+
+Generator: execution of make failed. Make command was: "C:/Users/swillin/Downloads/make-3.81-bin" "cmTC_6ac9c/fast"
+
+

@@ -8,9 +8,9 @@
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
-#include "spline.h"
 #include "Vehicle.h"
 #include "PID.h"
+#include "spline.h"
 
 using namespace std;
 
@@ -59,9 +59,7 @@ int ClosestWaypoint(double x, double y, vector<double> maps_x, vector<double> ma
 		}
 
 	}
-
 	return closestWaypoint;
-
 }
 
 int NextWaypoint(double x, double y, double theta, const vector<double> maps_x, const vector<double> maps_y)
@@ -150,9 +148,7 @@ vector<double> getXY(double s, double d, vector<double> maps_s, const vector<dou
 	int wp2 = (prev_wp+1)%maps_x.size();
 
 	double heading = atan2((maps_y[wp2]-maps_y[prev_wp]),(maps_x[wp2]-maps_x[prev_wp]));
-	// the x,y,s along the segment
 	double seg_s = (s-maps_s[prev_wp]);
-
 	double seg_x = maps_x[prev_wp]+seg_s*cos(heading);
 	double seg_y = maps_y[prev_wp]+seg_s*sin(heading);
 
@@ -177,15 +173,15 @@ int main() {
 
     double speed_limit = 49.9;
 
-    // define a vehicle class
-    Vehicle ego_vehicle;
-    ego_vehicle.start(lane, speed_limit);
+    // setting our vehicle class
+    Vehicle vehicle;
+    vehicle.start(lane, speed_limit);
 
-    // velocity controller
+    // the velocity controller
     PID vel_control;
     vel_control.Init(0.005, 0.0, 0.0);
 
-    // Load up map values for waypoint's x,y,s and d normalized normal vectors
+    // Load up map values for waypoints x,y,s and d normalized normal vectors
     vector<double> map_waypoints_x;
     vector<double> map_waypoints_y;
     vector<double> map_waypoints_s;
@@ -221,9 +217,8 @@ int main() {
     }
 
 
-  h.onMessage([&speed_limit, &map_waypoints_x,&map_waypoints_y,&map_waypoints_s, &ego_vehicle, 
-                &vel_control,
-                &map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, 
+  h.onMessage([&speed_limit, &map_waypoints_x, &map_waypoints_y, &map_waypoints_s, &vehicle,
+                &vel_control, &map_waypoints_dx, &map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws,
                 char *data, size_t length, uWS::OpCode opCode) 
   {
     // "42" at the start of the message means there's a websocket message event.
@@ -240,9 +235,8 @@ int main() {
         
         string event = j[0].get<string>();
         
-        if (event == "telemetry"){
-          // j[1] is the data JSON object
-          
+        if (event == "telemetry")
+        {
         	// Main car's localization Data
           	double car_x = j[1]["x"];
           	double car_y = j[1]["y"];
@@ -270,20 +264,15 @@ int main() {
               car_s = end_path_s;
 
             // get new lane to go to
-            lane = ego_vehicle.next_lane(sensor_fusion, lane, car_s, end_path_s, prev_size);
+            lane = vehicle.next_lane(sensor_fusion, lane, car_s, end_path_s, prev_size);
 
-
-            /////////////////////////////////////////////
             // target velocity control
-            if (ego_vehicle.too_close)
-            {
-                cout << "change to lane: " << lane << endl;
-                speed_limit = ego_vehicle.other_car_vel;
-            }
+            if (vehicle.too_close)
+                speed_limit = vehicle.other_car_vel;
             else  // keeping lane and speed
                 speed_limit = max_speed;
 
-
+            // calc the PID error
             double vel_error = ref_vel - speed_limit;
             vel_control.UpdateError(vel_error);
             double new_vel = vel_control.TotalError();

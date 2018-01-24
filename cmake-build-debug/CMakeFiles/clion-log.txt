@@ -1,0 +1,37 @@
+"C:\Program Files\JetBrains\CLion 2017.3.1\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/swillin/Downloads/make-3.81-bin -G "CodeBlocks - MinGW Makefiles" C:\Users\swillin\courses\drive\projects\path_planning
+-- The C compiler identification is GNU 7.2.0
+-- The CXX compiler identification is GNU 7.2.0
+-- Check for working C compiler: C:/Program Files (x86)/mingw-w64/i686-7.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/gcc.exe
+CMake Error: Generator: execution of make failed. Make command was: "C:/Users/swillin/Downloads/make-3.81-bin" "cmTC_6ac9c/fast"
+-- Check for working C compiler: C:/Program Files (x86)/mingw-w64/i686-7.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/gcc.exe -- broken
+CMake Error at C:/Program Files/JetBrains/CLion 2017.3.1/bin/cmake/share/cmake-3.9/Modules/CMakeTestCCompiler.cmake:51 (message):
+  The C compiler "C:/Program Files
+  (x86)/mingw-w64/i686-7.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/gcc.exe" is
+  not able to compile a simple test program.
+
+  It fails with the following output:
+
+   Change Dir: C:/Users/swillin/courses/drive/projects/path_planning/cmake-build-debug/CMakeFiles/CMakeTmp
+
+  
+
+  Run Build Command:"C:/Users/swillin/Downloads/make-3.81-bin"
+  "cmTC_6ac9c/fast"
+
+  
+
+  Generator: execution of make failed.  Make command was:
+  "C:/Users/swillin/Downloads/make-3.81-bin" "cmTC_6ac9c/fast"
+
+  
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:1 (project)
+
+
+-- Configuring incomplete, errors occurred!
+See also "C:/Users/swillin/courses/drive/projects/path_planning/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "C:/Users/swillin/courses/drive/projects/path_planning/cmake-build-debug/CMakeFiles/CMakeError.log".
