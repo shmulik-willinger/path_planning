@@ -65,6 +65,15 @@ the path has processed since last time.
 
 ["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates.
 
+
+Cartesian (x,y) to Frenet (s,d)
+![]( https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/Frenet.jpg?raw=true)
+
+Reference points for Lane changing
+![]( https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/lane_decision.jpg?raw=true)
+
+
+
 ## Implementation
 
 The objectives of the project were achieved by the following steps:
@@ -82,9 +91,17 @@ The output of this step is whether to change lane and when. The code can be foun
 #### 4. Trajectory generation
 Using a corresponding Frenet coordinates (s,d) we need to create (x,y) coordinates of waypoints ahead of the vehicle. The car should progress to each on of the points in every 0.02 seconds, so we're generating evenly smooth trajectory by using the spline function over the waypoints. The code can be found in main.cpp (from line 354)
 
-
 #### Previous path
 There will be some latency between the simulator running and the path planner returning a path, with optimized code usually its not very long maybe just 1-3 time steps. During this delay the simulator will continue using points that it was last given, so the program will store the last points we have used in order to have a smooth transition. previous_path_x, and previous_path_y are helpful for this transition since they show the last points given to the simulator controller with the processed points already removed.
+
+
+Change lane              |  Stay in lane
+:---------------------:|:---------------------:
+![]( https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/change_lane.jpg?raw=true)  |  ![]( https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/keep_lane.jpg?raw=true)
+
+Driving 10 miles without collisions  |  Driving at max speed
+:---------------------:|:---------------------:
+![](https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/10_miles.jpg?raw=true)  |  ![]( https://github.com/shmulik-willinger/path_planning/blob/master/readme_img/max_speed.jpg?raw=true)
 
 
 Dependencies and Executing
